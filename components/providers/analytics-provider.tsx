@@ -1,12 +1,11 @@
 'use client'
 
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import { initGA, trackPageView, isGAEnabled } from '@/lib/analytics'
 
-export function AnalyticsProvider({ children }: { readonly children: React.ReactNode }) {
+export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
 
   useEffect(() => {
     // Inicializar GA en el cliente
@@ -17,11 +16,10 @@ export function AnalyticsProvider({ children }: { readonly children: React.React
 
   useEffect(() => {
     // Track page views cuando cambia la ruta
-    if (isGAEnabled) {
-      const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '')
-      trackPageView(url)
+    if (isGAEnabled && pathname) {
+      trackPageView(pathname)
     }
-  }, [pathname, searchParams])
+  }, [pathname])
 
   return <>{children}</>
 }
