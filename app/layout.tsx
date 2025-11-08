@@ -6,6 +6,8 @@ import { Footer } from '@/components/layout/footer'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { DebugAnalytics } from '@/components/analytics/debug-analytics'
 import { Suspense } from 'react'
+import { useEffect } from 'react'
+import { initGA, isGAEnabled } from '@/lib/analytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,8 +31,14 @@ function LoadingFallback() {
 export default function RootLayout({
   children,
 }: {
-  readonly children: React.ReactNode
+  children: React.ReactNode
 }) {
+  useEffect(() => {
+    if (isGAEnabled) {
+      initGA()
+    }
+  }, [])
+
   return (
     <html lang="es">
       <head>
