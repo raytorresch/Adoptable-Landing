@@ -34,19 +34,22 @@ export default function Home() {
             {/* Waitlist Form */}
             <WaitlistForm />
             
-            {/* Stats */}
+            {/* Blank Space */}
+            <div className="h-16" />
+
+            {/* Community Stats */}
             <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">500+</div>
-                <div className="text-gray-600 text-sm">Mascotas</div>
+                <div className="text-2xl font-bold text-gray-900">100%</div>
+                <div className="text-gray-600 text-sm">Gratuito</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">98%</div>
-                <div className="text-gray-600 text-sm">Éxito adopciones</div>
+                <div className="text-2xl font-bold text-gray-900">24/7</div>
+                <div className="text-gray-600 text-sm">Disponible</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-gray-900">24h</div>
-                <div className="text-gray-600 text-sm">Proceso rápido</div>
+                <div className="text-2xl font-bold text-gray-900">100%</div>
+                <div className="text-gray-600 text-sm">Seguro</div>
               </div>
             </div>
           </div>
