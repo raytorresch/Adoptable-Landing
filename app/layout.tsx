@@ -14,28 +14,11 @@ export const metadata: Metadata = {
   description: 'La plataforma de adopción de mascotas más moderna y segura',
 }
 
-// Loading component simple
-function LoadingFallback() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
-        <p className="mt-4 text-gray-600">Cargando Adoptable...</p>
-      </div>
-    </div>
-  )
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  useEffect(() => {
-    if (isGAEnabled) {
-      initGA()
-    }
-  }, [])
 
   return (
     <html lang="es">
