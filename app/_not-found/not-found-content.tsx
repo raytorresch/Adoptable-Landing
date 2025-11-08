@@ -1,7 +1,9 @@
+'use client'
+
 import Link from 'next/link'
 import { Home, Search } from 'lucide-react'
 
-export default function NotFound() {
+export default function NotFoundContent() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
