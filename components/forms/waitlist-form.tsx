@@ -77,7 +77,7 @@ export function WaitlistForm() {
       )}
       
       <p className="text-sm text-gray-500 mt-3 text-center">
-        Sé el primero en probar Adoptable. Sin spam.
+        Se el primero en probar Adoptable. Sin spam.
       </p>
     </form>
   )

@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Heart, Shield, Users, Zap } from 'lucide-react'
 import { WaitlistForm } from '@/components/forms/waitlist-form'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -110,9 +111,12 @@ export default function Home() {
           <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
             Únete a la lista de espera y sé notificado cuando lancemos oficialmente.
           </p>
-          <Button size="lg" className="bg-orange-600 hover:bg-orange-700">
-            Unirse a la lista de espera
-          </Button>
+          <Link href="/waitlist">
+            <Button className="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg 
+              font-semibold hover:bg-gray-400 transition-colors">
+              Unirse a Lista de Espera
+            </Button>
+          </Link>
         </div>
       </section>
     </div>
