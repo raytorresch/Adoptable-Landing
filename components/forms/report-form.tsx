@@ -186,7 +186,7 @@ export function ReportForm() {
       {/* Page URL */}
       <div className="space-y-2">
         <label htmlFor="page_url" className="text-sm font-medium text-gray-700">
-          URL de la página (si aplica)
+          Vista de la Aplicación o URL de la página (si aplica)
         </label>
         <Input
           id="page_url"
