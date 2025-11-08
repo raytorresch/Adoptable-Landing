@@ -1,5 +1,5 @@
-import fs from 'fs';
-import readline from 'readline';
+import fs from 'node:fs';
+import readline from 'node:readline';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -38,8 +38,8 @@ async function setupEnv() {
     `.trim();
     
     fs.writeFileSync('.env.local', envContent);
-    console.log('✅ .env.local creado exitosamente!');
+    console.log('✓ .env.local creado exitosamente!');
     rl.close();
 }
 
-setupEnv();
+await setupEnv();

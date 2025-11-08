@@ -8,6 +8,7 @@ export async function addToWaitlist(email: string) {
       createdAt: serverTimestamp(),
       source: "landing_page",
       status: 'pending',
+      userAgent: globalThis.window === undefined ? 'server' : globalThis.window.navigator.userAgent,
       notified: false
     })
     return { success: true, id: docRef.id }

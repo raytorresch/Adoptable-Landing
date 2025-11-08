@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { submitContactForm } from '@/lib/contact-service'
 import { CheckCircle, Loader2, Mail, User, MessageSquare } from 'lucide-react'
+import { trackEvent, Events } from '@/lib/analytics'
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -24,9 +25,20 @@ export function ContactForm() {
     if (result.success) {
       setStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
-      setTimeout(() => setStatus('idle'), 5000)
+
+      trackEvent(Events.WAITLIST_SIGNUP_SUCCESS, {
+        email: formData.email,
+        location: 'hero_section'
+      })
+      
+      setTimeout(() => setStatus('idle'), 5000)      
     } else {
       setStatus('error')
+      trackEvent(Events.WAITLIST_SIGNUP_ERROR, {
+        email: formData.email,
+        location: 'hero_section',
+        error: result.error || 'unknown_error'
+      })
     }
   }
 
