@@ -6,8 +6,6 @@ import { Footer } from '@/components/layout/footer'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { DebugAnalytics } from '@/components/analytics/debug-analytics'
 import { Suspense } from 'react'
-import { useEffect } from 'react'
-import { initGA, isGAEnabled } from '@/lib/analytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,28 +14,11 @@ export const metadata: Metadata = {
   description: 'La plataforma de adopción de mascotas más moderna y segura',
 }
 
-// Loading component simple
-function LoadingFallback() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
-        <p className="mt-4 text-gray-600">Cargando Adoptable...</p>
-      </div>
-    </div>
-  )
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  useEffect(() => {
-    if (isGAEnabled) {
-      initGA()
-    }
-  }, [])
 
   return (
     <html lang="es">
@@ -45,7 +26,7 @@ export default function RootLayout({
         {/* Google Analytics Script se carga desde el cliente */}
       </head>
       <body className={`${inter.className} antialiased`}>
-        <Suspense fallback={<LoadingFallback />}>
+        <Suspense fallback={null}>
           <AnalyticsProvider>
           <div className="min-h-screen flex flex-col">
               <Header />
