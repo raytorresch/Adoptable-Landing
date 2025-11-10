@@ -18,6 +18,9 @@ export function Footer() {
             <Link href="/report" className="text-gray-600 hover:text-gray-900 text-sm">
               Reportar Problema
             </Link>
+            <Link href="/account/delete" className="text-gray-600 hover:text-gray-900 text-sm">
+              Eliminar Cuenta
+            </Link>
           </div>
         </div>
       </div>
