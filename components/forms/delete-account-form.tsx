@@ -41,6 +41,7 @@ export function DeleteAccountForm() {
         setStatus('error')
       }
     } catch (error) {
+      console.error('Error submitting deletion request:', error)
       setStatus('error')
     }
   }
@@ -50,6 +51,33 @@ export function DeleteAccountForm() {
       ...prev,
       [e.target.name]: e.target.value
     }))
+  }
+
+  const getButtonContent = () => {
+    if (status === 'loading') {
+      return (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin mr-2" />
+          Procesando solicitud...
+        </>
+      )
+    }
+    
+    if (status === 'success') {
+      return (
+        <>
+          <CheckCircle className="w-4 h-4 mr-2" />
+          Solicitud enviada
+        </>
+      )
+    }
+    
+    return (
+      <>
+        <AlertTriangle className="w-4 h-4 mr-2" />
+        Solicitar eliminación de cuenta
+      </>
+    )
   }
 
   return (
@@ -114,22 +142,7 @@ export function DeleteAccountForm() {
         className="w-full bg-red-600 hover:bg-red-700 text-white"
         size="lg"
       >
-        {status === 'loading' ? (
-          <>
-            <Loader2 className="w-4 h-4 animate-spin mr-2" />
-            Procesando solicitud...
-          </>
-        ) : status === 'success' ? (
-          <>
-            <CheckCircle className="w-4 h-4 mr-2" />
-            Solicitud enviada
-          </>
-        ) : (
-          <>
-            <AlertTriangle className="w-4 h-4 mr-2" />
-            Solicitar eliminación de cuenta
-          </>
-        )}
+        {getButtonContent()}
       </Button>
 
       {/* Status Messages */}

@@ -49,6 +49,28 @@ export function ContactForm() {
     }))
   }
 
+  const getButtonContent = () => {
+    if (status === 'loading') {
+      return (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin mr-2" />
+          Enviando...
+        </>
+      )
+    }
+    
+    if (status === 'success') {
+      return (
+        <>
+          <CheckCircle className="w-4 h-4 mr-2" />
+          ¡Mensaje enviado!
+        </>
+      )
+    }
+    
+    return 'Enviar mensaje'
+  }
+
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
@@ -130,19 +152,7 @@ export function ContactForm() {
         className="w-full bg-orange-600 hover:bg-orange-700"
         size="lg"
       >
-        {status === 'loading' ? (
-          <>
-            <Loader2 className="w-4 h-4 animate-spin mr-2" />
-            Enviando...
-          </>
-        ) : status === 'success' ? (
-          <>
-            <CheckCircle className="w-4 h-4 mr-2" />
-            ¡Mensaje enviado!
-          </>
-        ) : (
-          'Enviar mensaje'
-        )}
+        {getButtonContent()}
       </Button>
 
       {/* Status Messages */}
