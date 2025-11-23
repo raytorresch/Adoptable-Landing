@@ -37,6 +37,24 @@ export function WaitlistForm() {
     }
   }
 
+  const getButtonContent = () => {
+    if (status === 'loading') {
+      return (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin" />
+        </>
+      )
+    } else if (status === 'success') {
+      return (
+        <>
+          <CheckCircle className="w-4 h-4" />
+        </>
+      )
+    } else {
+      return 'Unirse a lista de espera'
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto">
       <div className="flex flex-col sm:flex-row gap-3">
@@ -54,13 +72,7 @@ export function WaitlistForm() {
           disabled={status === 'loading' || status === 'success' || !email}
           className="bg-orange-600 hover:bg-orange-700 whitespace-nowrap min-w-[160px]"
         >
-          {status === 'loading' ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
-          ) : status === 'success' ? (
-            <CheckCircle className="w-4 h-4" />
-          ) : (
-            'Unirse a lista de espera'
-          )}
+          {getButtonContent()}
         </Button>
       </div>
       

@@ -97,11 +97,54 @@ export function ReportForm() {
     }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }))
+  }
+
+  const getIssueTypeButtonClass = (typeValue: IssueType) => {
+    return formData.issue_type === typeValue
+      ? 'border-orange-500 bg-orange-50'
+      : 'border-gray-200 bg-white hover:border-gray-300'
+  }
+
+  const getUrgencyButtonClass = (levelValue: 'low' | 'medium' | 'high') => {
+    if (formData.urgency === levelValue) {
+      if (levelValue === 'high') return 'border-red-500 bg-red-50'
+      if (levelValue === 'medium') return 'border-orange-500 bg-orange-50'
+      return 'border-green-500 bg-green-50'
+    }
+    return 'border-gray-200 bg-white hover:border-gray-300'
+  }
+
+  const getUrgencyTextClass = (levelValue: 'low' | 'medium' | 'high') => {
+    if (levelValue === 'high') return 'text-red-700'
+    if (levelValue === 'medium') return 'text-orange-700'
+    return 'text-green-700'
+  }
+
+  const getButtonContent = () => {
+    if (status === 'loading') {
+      return (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin mr-2" />
+          Enviando reporte...
+        </>
+      )
+    }
+    
+    if (status === 'success') {
+      return (
+        <>
+          <CheckCircle className="w-4 h-4 mr-2" />
+          ¡Reporte enviado!
+        </>
+      )
+    }
+    
+    return 'Enviar reporte'
   }
 
   return (
@@ -124,21 +167,17 @@ export function ReportForm() {
       </div>
 
       {/* Issue Type */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700">
+      <fieldset className="space-y-2">
+        <legend className="text-sm font-medium text-gray-700">
           Tipo de problema *
-        </label>
+        </legend>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {ISSUE_TYPES.map((type) => (
             <button
               key={type.value}
               type="button"
               onClick={() => setFormData(prev => ({ ...prev, issue_type: type.value }))}
-              className={`p-3 rounded-lg border-2 text-left transition-all ${
-                formData.issue_type === type.value
-                  ? 'border-orange-500 bg-orange-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
-              }`}
+              className={`p-3 rounded-lg border-2 text-left transition-all ${getIssueTypeButtonClass(type.value)}`}
             >
               <div className="flex items-center gap-2 mb-1">
                 {type.icon}
@@ -148,40 +187,29 @@ export function ReportForm() {
             </button>
           ))}
         </div>
-      </div>
+      </fieldset>
 
       {/* Urgency */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium text-gray-700">
+      <fieldset className="space-y-2">
+        <legend className="text-sm font-medium text-gray-700">
           Urgencia *
-        </label>
+        </legend>
         <div className="grid grid-cols-3 gap-3">
           {URGENCY_LEVELS.map((level) => (
             <button
               key={level.value}
               type="button"
               onClick={() => setFormData(prev => ({ ...prev, urgency: level.value }))}
-              className={`p-3 rounded-lg border-2 text-center transition-all ${
-                formData.urgency === level.value
-                  ? level.value === 'high' 
-                    ? 'border-red-500 bg-red-50'
-                    : level.value === 'medium'
-                    ? 'border-orange-500 bg-orange-50'
-                    : 'border-green-500 bg-green-50'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
-              }`}
+              className={`p-3 rounded-lg border-2 text-center transition-all ${getUrgencyButtonClass(level.value)}`}
             >
-              <span className={`font-medium text-sm ${
-                level.value === 'high' ? 'text-red-700' :
-                level.value === 'medium' ? 'text-orange-700' : 'text-green-700'
-              }`}>
+              <span className={`font-medium text-sm ${getUrgencyTextClass(level.value)}`}>
                 {level.label}
               </span>
               <p className="text-xs text-gray-600 mt-1">{level.description}</p>
             </button>
           ))}
         </div>
-      </div>
+      </fieldset>
 
       {/* Page URL */}
       <div className="space-y-2">
@@ -223,19 +251,7 @@ export function ReportForm() {
         className="w-full bg-orange-600 hover:bg-orange-700"
         size="lg"
       >
-        {status === 'loading' ? (
-          <>
-            <Loader2 className="w-4 h-4 animate-spin mr-2" />
-            Enviando reporte...
-          </>
-        ) : status === 'success' ? (
-          <>
-            <CheckCircle className="w-4 h-4 mr-2" />
-            ¡Reporte enviado!
-          </>
-        ) : (
-          'Enviar reporte'
-        )}
+        {getButtonContent()}
       </Button>
 
       {/* Status Messages */}

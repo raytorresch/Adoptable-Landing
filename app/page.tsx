@@ -19,7 +19,7 @@ export default function Home() {
             {/* Heading */}
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
               Encuentra a tu 
-              <span className="text-orange-600"> compañero</span> 
+              <span className="text-orange-600">compañero</span> 
               <br />
               perfecto
             </h1>
